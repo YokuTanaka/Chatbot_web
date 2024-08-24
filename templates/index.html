@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チャットボット</title>
+</head>
+<body>
+    <h1>Port Hall & Studio チャットボット</h1>
+    <form method="POST">
+        <label for="user_input">質問を入力してください:</label><br>
+        <input type="text" id="user_input" name="user_input" required><br><br>
+        <input type="submit" value="送信">
+    </form>
+    {% if bot_response %}
+    <h2>チャットボットの応答:</h2>
+    <p>{{ bot_response }}</p>
+    {% endif %}
+</body>
+</html>
