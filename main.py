@@ -42,4 +42,24 @@ def chatbot(prompt, context):
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
-                {"r
+                {"role": "system", "content": f"Here is some information about the venue: {context}"},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return response.choices[0]["message"]["content"]
+    except openai.error.OpenAIError as e:
+        return f"エラーが発生しました: {e}"
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    context = load_all_info()
+    if request.method == "POST":
+        user_input = request.form["user_input"]
+        bot_response = chatbot(user_input, context)
+        response = render_template("index.html", user_input=user_input, bot_response=bot_response)
+        return response, 200, {'Content-Type': 'text/html; charset=utf-8'}
+    return render_template("index.html"), 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
