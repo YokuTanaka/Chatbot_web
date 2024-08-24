@@ -32,7 +32,7 @@ def read_text_file(file_path):
 # 全てのファイルの内容を読み込み、まとめる関数
 def load_all_info():
     porthall_info = read_text_file('porthall_Basic Info.txt')
-    portstudio_info = read_text_file('porthall_Technical Information.txt')
+    portstudio_info = read_text_file('portstudio_Basic Info.txt')
     return porthall_info + "\n" + portstudio_info
 
 # チャットボット機能
