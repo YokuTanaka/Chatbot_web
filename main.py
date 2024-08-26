@@ -82,9 +82,12 @@ def format_response(response):
     # '<<BR>>' プレースホルダーをHTML改行タグに置き換える
     response = response.replace("<<BR>>", "<br>")
     
-    # 追加のフォーマット処理
-    response = response.replace(" - ", "<br>- ").replace(": ", ":<br>")
-    
+    # 余分なスペースや改行を削除する
+    response = response.replace("<br> <br>", "<br>")
+
+    # リスト項目の前後に改行を追加
+    response = response.replace(" - ", "<br>- ").replace(":<br>", ":<br>")
+
     # デバッグ用にフォーマット後のテキストを出力
     print("Formatted response:", response)
     
