@@ -70,7 +70,7 @@ def chatbot(prompt, context):
         raw_response = response.choices[0].message["content"]
         print("Raw response from model:", raw_response)  # デバッグ用にモデルの応答を出力
         
-        # プレースホルダーを改行に置き換える
+        # プレースホルダーをHTMLの改行タグに置き換える
         formatted_response = format_response(raw_response)
         
         return formatted_response
@@ -79,11 +79,11 @@ def chatbot(prompt, context):
 
 # 応答のフォーマット処理
 def format_response(response):
-    # '<<BR>>' プレースホルダーを改行に置き換える
-    response = response.replace("<<BR>>", "\n")
+    # '<<BR>>' プレースホルダーをHTML改行タグに置き換える
+    response = response.replace("<<BR>>", "<br>")
     
     # 追加のフォーマット処理
-    response = response.replace(" - ", "\n- ").replace(": ", ":\n")
+    response = response.replace(" - ", "<br>- ").replace(": ", ":<br>")
     
     # デバッグ用にフォーマット後のテキストを出力
     print("Formatted response:", response)
@@ -96,7 +96,7 @@ def index():
     if request.method == "POST":
         user_input = request.form["user_input"]
         bot_response = chatbot(user_input, context)
-        return bot_response  # HTMLではなく、チャットボットの応答のみを返す
+        return render_template("index.html", user_input=user_input, bot_response=bot_response)
     return render_template("index.html")
 
 if __name__ == "__main__":
