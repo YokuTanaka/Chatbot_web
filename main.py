@@ -60,9 +60,8 @@ def chatbot(prompt, context):
             messages=[
                 {"role": "system", "content": (
                     "You are a helpful assistant. When generating the response, "
-                    "please ensure that the information is clear and well-organized. "
-                    "Use bullet points and line breaks appropriately to make the content "
-                    "easy to read."
+                    "please ensure that the information is clearly separated by line breaks. "
+                    "Use bullet points for lists, and insert line breaks after each point using '<<BR>>' as a placeholder."
                 )},
                 {"role": "system", "content": f"Context information: {context}"},
                 {"role": "user", "content": prompt}
@@ -70,7 +69,7 @@ def chatbot(prompt, context):
         )
         raw_response = response.choices[0].message["content"]
         
-        # 改行を追加して読みやすくする
+        # プレースホルダーを改行に置き換える
         formatted_response = format_response(raw_response)
         
         return formatted_response
@@ -79,16 +78,11 @@ def chatbot(prompt, context):
 
 # 応答のフォーマット処理
 def format_response(response):
-    # 「 - 」や「: 」に加えて、「**」で囲まれた部分で改行を挿入する
+    # '<<BR>>' プレースホルダーを改行に置き換える
+    response = response.replace("<<BR>>", "\n")
+    
+    # 追加のフォーマット処理
     response = response.replace(" - ", "\n- ").replace(": ", ":\n")
-    
-    # 強調部分（**...**）の前後にも改行を追加
-    response = response.replace("**: ", "**:\n")
-    
-    # 特定のキーワードの後に改行を追加
-    keywords = ["音響セット一式", "メインスピーカー", "ワイヤレスマイク", "有線マイク", "デジタルミキサーコンソール", "録音再生機器", "インカム", "マイクスタンド"]
-    for keyword in keywords:
-        response = response.replace(f"{keyword}:", f"\n{keyword}:")
     
     return response
 
