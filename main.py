@@ -74,8 +74,18 @@ def chatbot(prompt, context):
 
 # 応答のフォーマット処理
 def format_response(response):
-    # キーワードや文法ルールに基づいて改行を挿入する（例）
-    return response.replace(" - ", "\n- ").replace(": ", ":\n")
+    # 「 - 」や「: 」に加えて、「**」で囲まれた部分で改行を挿入する
+    response = response.replace(" - ", "\n- ").replace(": ", ":\n")
+    
+    # 強調部分（**...**）の前後にも改行を追加
+    response = response.replace("**: ", "**:\n")
+    
+    # 特定のキーワードの後に改行を追加
+    keywords = ["音響セット", "メインスピーカー", "ワイヤレスマイク", "有線マイク", "デジタルミキサーコンソール", "録音再生機器", "インカム", "マイクスタンド"]
+    for keyword in keywords:
+        response = response.replace(f"**{keyword}**", f"\n**{keyword}**")
+    
+    return response
 
 @app.route("/", methods=["GET", "POST"])
 def index():
