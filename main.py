@@ -58,7 +58,12 @@ def chatbot(prompt, context):
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant. Analyze the user's intent and provide relevant information from the context provided."},
+                {"role": "system", "content": (
+                    "You are a helpful assistant. When generating the response, "
+                    "please ensure that the information is clear and well-organized. "
+                    "Use bullet points and line breaks appropriately to make the content "
+                    "easy to read."
+                )},
                 {"role": "system", "content": f"Context information: {context}"},
                 {"role": "user", "content": prompt}
             ]
@@ -81,9 +86,9 @@ def format_response(response):
     response = response.replace("**: ", "**:\n")
     
     # 特定のキーワードの後に改行を追加
-    keywords = ["音響セット", "メインスピーカー", "ワイヤレスマイク", "有線マイク", "デジタルミキサーコンソール", "録音再生機器", "インカム", "マイクスタンド"]
+    keywords = ["音響セット一式", "メインスピーカー", "ワイヤレスマイク", "有線マイク", "デジタルミキサーコンソール", "録音再生機器", "インカム", "マイクスタンド"]
     for keyword in keywords:
-        response = response.replace(f"**{keyword}**", f"\n**{keyword}**")
+        response = response.replace(f"{keyword}:", f"\n{keyword}:")
     
     return response
 
