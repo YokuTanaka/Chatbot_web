@@ -63,9 +63,19 @@ def chatbot(prompt, context):
                 {"role": "user", "content": prompt}
             ]
         )
-        return response.choices[0].message["content"]
+        raw_response = response.choices[0].message["content"]
+        
+        # 改行を追加して読みやすくする
+        formatted_response = format_response(raw_response)
+        
+        return formatted_response
     except openai.error.OpenAIError as e:
         return f"エラーが発生しました: {e}"
+
+# 応答のフォーマット処理
+def format_response(response):
+    # キーワードや文法ルールに基づいて改行を挿入する（例）
+    return response.replace(" - ", "\n- ").replace(": ", ":\n")
 
 @app.route("/", methods=["GET", "POST"])
 def index():
