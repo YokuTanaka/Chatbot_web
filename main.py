@@ -31,9 +31,19 @@ def read_text_file(file_path):
 
 # 全てのファイルの内容を読み込み、まとめる関数
 def load_all_info():
-    porthall_info = read_text_file('porthall_Basic Info.txt')
-    portstudio_info = read_text_file('portstudio_Basic Info.txt')
-    return porthall_info + "\n" + portstudio_info
+    porthall_basic = read_text_file('porthall_Basic Info.txt')
+    porthall_technical = read_text_file('porthall_technical Info.txt')
+    portstudio_basic = read_text_file('portstudio_Basic Info.txt')
+    portstudio_technical = read_text_file('portstudio_technical Info.txt')
+    terms_of_use = read_text_file('Terms of use.txt')
+    
+    return {
+        "porthall_basic": porthall_basic,
+        "porthall_technical": porthall_technical,
+        "portstudio_basic": portstudio_basic,
+        "portstudio_technical": portstudio_technical,
+        "terms_of_use": terms_of_use
+    }
 
 # チャットボット機能
 def chatbot(prompt, context):
@@ -46,7 +56,7 @@ def chatbot(prompt, context):
                 {"role": "user", "content": prompt}
             ]
         )
-        return response.choices[0]['message']['content']
+        return response.choices[0].message["content"]
     except openai.error.OpenAIError as e:
         return f"エラーが発生しました: {e}"
 
