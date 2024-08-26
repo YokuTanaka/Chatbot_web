@@ -96,7 +96,8 @@ def index():
     if request.method == "POST":
         user_input = request.form["user_input"]
         bot_response = chatbot(user_input, context)
-        return render_template("index.html", user_input=user_input, bot_response=bot_response)
+        print("Sending response to client:", bot_response)  # デバッグ用にレスポンスを出力
+        return bot_response  # HTMLではなく、チャットボットの応答のみを返す
     return render_template("index.html")
 
 if __name__ == "__main__":
