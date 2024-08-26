@@ -68,6 +68,7 @@ def chatbot(prompt, context):
             ]
         )
         raw_response = response.choices[0].message["content"]
+        print("Raw response from model:", raw_response)  # デバッグ用にモデルの応答を出力
         
         # プレースホルダーを改行に置き換える
         formatted_response = format_response(raw_response)
