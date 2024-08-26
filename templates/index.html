@@ -51,10 +51,10 @@
             })
             .then(response => response.text())
             .then(data => {
-                // チャットボットの応答をテキストとして表示
+                // チャットボットの応答をHTMLとして表示
                 const botMessage = document.createElement("div");
                 botMessage.classList.add("message", "bot");
-                botMessage.textContent = data;  // textContentを使用
+                botMessage.innerHTML = data;  // innerHTMLを使用
                 chatBox.appendChild(botMessage);
                 chatBox.scrollTop = chatBox.scrollHeight; // 自動スクロール
             });
