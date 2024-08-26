@@ -17,7 +17,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 sys.stdout.reconfigure(encoding='utf-8')
 sys.stdin.reconfigure(encoding='utf-8')
 
-# テキストファイルから情報を読み込む関数
+# テキストファイルから情報を読み込む関数（デバッグログ付き）
 def read_text_file(file_path):
     try:
         with open(file_path, 'rb') as file:
@@ -25,9 +25,14 @@ def read_text_file(file_path):
             result = chardet.detect(raw_data)
             encoding = result['encoding']
             data = raw_data.decode(encoding)
+            print(f"File {file_path} read successfully.")
         return data
     except FileNotFoundError:
+        print(f"File {file_path} not found.")
         return "指定されたファイルが見つかりません。"
+    except Exception as e:
+        print(f"Error reading file {file_path}: {e}")
+        return "ファイルの読み込み中にエラーが発生しました。"
 
 # 全てのファイルの内容を読み込み、まとめる関数
 def load_all_info():
