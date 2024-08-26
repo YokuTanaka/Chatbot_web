@@ -54,11 +54,12 @@ def load_all_info():
 # チャットボット機能
 def chatbot(prompt, context):
     try:
+        # OpenAIのモデルを使って意図解析と応答生成を行う
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "system", "content": f"Here is some information about the venue: {context}"},
+                {"role": "system", "content": "You are a helpful assistant. Analyze the user's intent and provide relevant information from the context provided."},
+                {"role": "system", "content": f"Context information: {context}"},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -68,7 +69,7 @@ def chatbot(prompt, context):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    context = load_all_info()
+    context = load_all_info()  # 事前にすべての情報を読み込む
     if request.method == "POST":
         user_input = request.form["user_input"]
         bot_response = chatbot(user_input, context)
