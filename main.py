@@ -20,7 +20,7 @@ sys.stdin.reconfigure(encoding='utf-8')
 # テキストファイルから情報を読み込む関数
 def read_text_file(file_path):
     try:
-        with open(file_path, 'rb') as file:  # 'rb'でバイナリモードで読み込み
+        with open(file_path, 'rb') as file:
             raw_data = file.read()
             result = chardet.detect(raw_data)
             encoding = result['encoding']
@@ -46,7 +46,7 @@ def chatbot(prompt, context):
                 {"role": "user", "content": prompt}
             ]
         )
-        return response.choices[0]["message"]["content"]
+        return response.choices[0]['message']['content']
     except openai.error.OpenAIError as e:
         return f"エラーが発生しました: {e}"
 
@@ -56,9 +56,8 @@ def index():
     if request.method == "POST":
         user_input = request.form["user_input"]
         bot_response = chatbot(user_input, context)
-        response = render_template("index.html", user_input=user_input, bot_response=bot_response)
-        return response, 200, {'Content-Type': 'text/html; charset=utf-8'}
-    return render_template("index.html"), 200, {'Content-Type': 'text/html; charset=utf-8'}
+        return bot_response  # HTMLではなく、チャットボットの応答のみを返す
+    return render_template("index.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
