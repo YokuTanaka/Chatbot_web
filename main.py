@@ -36,11 +36,11 @@ def read_text_file(file_path):
 
 # 全てのファイルの内容を読み込み、まとめる関数
 def load_all_info():
-    porthall_basic = read_text_file('porthall_Basic Info.txt')
-    porthall_technical = read_text_file('porthall_technical Info.txt')
-    portstudio_basic = read_text_file('portstudio_Basic Info.txt')
-    portstudio_technical = read_text_file('portstudio_technical Info.txt')
-    terms_of_use = read_text_file('Terms of use.txt')
+    porthall_basic = read_text_file('porthall_Basic_Info.txt')
+    porthall_technical = read_text_file('porthall_technical_Info.txt')
+    portstudio_basic = read_text_file('portstudio_Basic_Info.txt')
+    portstudio_technical = read_text_file('portstudio_technical_Info.txt')
+    terms_of_use = read_text_file('Terms_of_use.txt')
     
     return {
         "porthall_basic": porthall_basic,
