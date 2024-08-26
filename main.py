@@ -85,6 +85,9 @@ def format_response(response):
     # 追加のフォーマット処理
     response = response.replace(" - ", "\n- ").replace(": ", ":\n")
     
+    # デバッグ用にフォーマット後のテキストを出力
+    print("Formatted response:", response)
+    
     return response
 
 @app.route("/", methods=["GET", "POST"])
