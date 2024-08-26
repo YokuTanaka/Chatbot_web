@@ -24,6 +24,7 @@ def read_text_file(file_path):
             raw_data = file.read()
             result = chardet.detect(raw_data)
             encoding = result['encoding']
+            print(f"Detected encoding for {file_path}: {encoding}")
             data = raw_data.decode(encoding)
             print(f"File {file_path} read successfully.")
         return data
