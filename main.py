@@ -42,13 +42,24 @@ def load_all_info():
     portstudio_basic = read_text_file('portstudio_Basic_Info.txt')
     portstudio_technical = read_text_file('portstudio_technical_Info.txt')
     terms_of_use = read_text_file('Terms_of_use.txt')
-    
+    porthall_network = read_text_file('porthall_network.txt')
+    porthall_power_panel = read_text_file('porthall_power_panel_Info.txt')
+    porthall_internet = read_text_file('porthall_Internet_Info.txt')
+    porthall_equipment_free = read_text_file('porthall_equipment_free_Info.txt')
+
+    # デバッグ用に読み込んだ情報をログに記録
+    print("All information loaded successfully.")
+
     return {
         "porthall_basic": porthall_basic,
         "porthall_technical": porthall_technical,
         "portstudio_basic": portstudio_basic,
         "portstudio_technical": portstudio_technical,
-        "terms_of_use": terms_of_use
+        "terms_of_use": terms_of_use,
+        "porthall_network": porthall_network,
+        "porthall_power_panel": porthall_power_panel,
+        "porthall_internet": porthall_internet,
+        "porthall_equipment_free": porthall_equipment_free
     }
 
 # チャットボット機能
