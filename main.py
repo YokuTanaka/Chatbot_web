@@ -95,14 +95,25 @@ def format_response(response):
     
     # 余分なスペースや改行を削除する
     response = response.replace("<br> <br>", "<br>")
+    
+    # 強調部分（**〜**）をHTMLの<strong>タグに変換
+    response = response.replace("**", "<strong>").replace(" - ", "<br>- ")
 
-    # リスト項目の前後に改行を追加
-    response = response.replace(" - ", "<br>- ").replace(":<br>", ":<br>")
+    # セクションタイトルや「注意事項」などの強調部分に自動的に改行を追加
+    # "〜:" の形式のセクションを検出して前後に改行を挿入
+    response = response.replace(":", ":<br>")
+    
+    # 注意事項のように特定のセクションを明示的に太字にする
+    response = response.replace("<strong>注意事項</strong>:", "<br><strong>注意事項</strong>:")
+    
+    # その他のセクションヘッダーのように**で囲まれている部分も同様に処理
+    response = response.replace("<strong>照明機器の詳細</strong>:", "<br><strong>照明機器の詳細</strong>:")
 
     # デバッグ用にフォーマット後のテキストを出力
     print("Formatted response:", response)
-    
+
     return response
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
